@@ -3,8 +3,7 @@
 
     <style name="Theme.KNow" parent="android:Theme.Material.Light.NoActionBar">
         <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="android:windowSplashScreenBackground">@color/white</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/know_logo</item>
-        <item name="windowSplashScreenIconBackgroundColor">@color/white</item>
-    </style>>
-
+    </style>
 </resources>
