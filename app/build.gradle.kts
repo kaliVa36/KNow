@@ -66,4 +66,7 @@ dependencies {
 
     // Navigation
     implementation(libs.accompanist.navigation.animation)
+
+    // Splash
+    implementation(libs.androidx.core.splash)
 }
