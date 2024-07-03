@@ -18,6 +18,18 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        defaultConfig {
+            buildConfigField(
+                "String",
+                "API_KEY",
+                "\"${project.findProperty("API_KEY")}\""
+            )
+        }
+
+        buildFeatures {
+            buildConfig = true
+        }
     }
 
     buildTypes {
