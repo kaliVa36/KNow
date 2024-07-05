@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -19,11 +21,19 @@ android {
             useSupportLibrary = true
         }
 
+        val properties = Properties()
+        val localPropertiesFile = File("local.properties")
+        if (localPropertiesFile.exists()) {
+            localPropertiesFile.inputStream().use {
+                properties.load(it)
+            }
+        }
+
         defaultConfig {
             buildConfigField(
                 "String",
                 "API_KEY",
-                "\"${project.findProperty("API_KEY")}\""
+                "\"${project.properties["API_KEY"]}\""
             )
         }
 
@@ -81,4 +91,18 @@ dependencies {
 
     // Splash
     implementation(libs.androidx.core.splash)
+
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
+
+    // Koin
+    implementation(platform(libs.koin.bom))
+    implementation(libs.koin.core)
+    implementation(libs.koin.compose)
+
+    // Gson
+    implementation(libs.google.gson)
+    implementation(libs.retrofit.converter.gson)
 }
