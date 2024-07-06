@@ -15,6 +15,6 @@ fun ArticleModel.toArticleEntity(): ArticleEntity {
         title = title.orEmpty(),
         description = description.orEmpty(),
         author = author.orEmpty(),
-        url = url.orEmpty()
+        url = urlToImage.orEmpty()
     )
 }

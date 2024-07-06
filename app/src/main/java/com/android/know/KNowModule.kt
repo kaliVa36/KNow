@@ -8,14 +8,14 @@ import com.android.know.domain.repository.NewsRepository
 import com.android.know.domain.usecase.NewsUseCase
 import com.android.know.domain.usecase.TopHeadlinesUseCase
 import com.android.know.ui.DummyViewModel
+import com.android.know.ui.feature.HomeViewModel
 import okhttp3.OkHttpClient
-import org.koin.dsl.module
-import retrofit2.Retrofit
-import java.util.concurrent.TimeUnit
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
+import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
+import java.util.concurrent.TimeUnit
 
 const val OKHTTP_CLIENT_TIMEOUT = 60L
 
@@ -51,4 +51,5 @@ val appModule = module {
     factory { NewsUseCase(get()) }
     factory { TopHeadlinesUseCase(get()) }
     viewModel { DummyViewModel(newsUseCase = get(), get()) }
+    viewModel { HomeViewModel(get()) }
 }
