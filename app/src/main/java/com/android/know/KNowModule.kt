@@ -13,6 +13,7 @@ import com.android.know.domain.usecase.TopHeadlinesUseCase
 import com.android.know.ui.DummyViewModel
 import com.android.know.ui.feature.article.ArticleViewModel
 import com.android.know.ui.feature.home.HomeViewModel
+import com.android.know.ui.feature.search.SearchViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -57,4 +58,5 @@ val appModule = module {
     viewModel { DummyViewModel(newsUseCase = get(), get()) }
     viewModel { HomeViewModel(get()) }
     viewModel { ArticleViewModel(get()) }
+    viewModel { SearchViewModel() }
 }

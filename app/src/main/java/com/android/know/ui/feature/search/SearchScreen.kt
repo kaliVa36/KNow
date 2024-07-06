@@ -17,7 +17,7 @@ import com.android.know.ui.components.text.Heading
 
 @Composable
 fun SearchScreen(
-    searchValue: String,
+    searchData: SearchData,
     onSearchValueChange: (String) -> Unit,
     onSearch: () -> Unit
 ) {
@@ -30,7 +30,7 @@ fun SearchScreen(
         Spacer(modifier = Modifier.height(12.dp))
         Heading(text = stringResource(id = R.string.search))
         Spacer(modifier = Modifier.height(12.dp))
-        SearchBar(value = searchValue, onValueChange = onSearchValueChange, onSearch = {})
+        SearchBar(value = searchData.searchValue, onValueChange = onSearchValueChange, onSearch = { onSearch() })
         Column {
 
         }

@@ -56,8 +56,9 @@ fun SearchBar(value: String, onValueChange: (String) -> Unit, modifier: Modifier
                     disabledBorderColor = Color.Transparent,
                     focusedBorderColor = Color.Transparent,
                     unfocusedBorderColor = Color.Transparent,
-                    focusedTextColor = Color.White,
-                    unfocusedTextColor = Color.White
+                    focusedTextColor = Color.Black,
+                    unfocusedTextColor = Color.Black,
+                    cursorColor = colorResource(id = R.color.content_primary)
                 ),
                 placeholder = {
                     TextMdRegular(
