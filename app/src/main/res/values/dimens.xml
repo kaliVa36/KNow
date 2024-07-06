@@ -3,4 +3,6 @@
     <dimen name="btn_read_more_horizontal_padding">10dp</dimen>
     <dimen name="btn_read_more_vertical_padding">6dp</dimen>
     <dimen name="btn_bookmark_padding">8dp</dimen>
+    <dimen name="btn_category_horizontal_padding">12dp</dimen>
+    <dimen name="btn_category_vertical_padding">4dp</dimen>
 </resources>

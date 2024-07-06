@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.sp
 import com.android.know.R
 import com.android.know.ui.TrailingDotConst
 
+// TODO: Sport section bug
 @Composable
 fun ExpandableText(
     modifier: Modifier = Modifier,

@@ -19,7 +19,7 @@ fun NavHost(navController: NavHostController) {
         composable(NEWS_SCREEN) {
             val viewModel = getViewModel<HomeViewModel>()
             val homeData by viewModel.homeScreenData.collectAsStateWithLifecycle()
-            HomeScreen(homeScreenData = homeData)
+            HomeScreen(homeScreenData = homeData, onCategoryClick = viewModel::setCategory)
         }
         composable(ARTICLE_SCREEN) {
             DummyScreen(screen = "Article screen")

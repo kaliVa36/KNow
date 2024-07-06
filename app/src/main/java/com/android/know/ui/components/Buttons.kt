@@ -16,7 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -24,7 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.android.know.R
 import com.android.know.ui.ImageContentDescription
-import com.android.know.ui.components.text.TextMedium
+import com.android.know.ui.components.text.TextSmMedium
 
 @Composable
 fun ReadMore(onClick: () -> Unit) {
@@ -38,7 +37,7 @@ fun ReadMore(onClick: () -> Unit) {
             ),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        TextMedium(text = stringResource(id = R.string.read_more), color = colorResource(id = R.color.white))
+        TextSmMedium(text = stringResource(id = R.string.read_more), color = colorResource(id = R.color.white))
         Spacer(modifier = Modifier.width(6.dp))
         Image(
             painter = painterResource(id = R.drawable.arrow),
