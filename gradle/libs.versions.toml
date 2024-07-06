@@ -32,6 +32,9 @@ coil_version = "2.6.0"
 # Lifecycle
 runtime-compose = '2.8.3'
 
+# Constraint layout
+constraint_version = "1.0.1"
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -71,6 +74,9 @@ coil = { module = "io.coil-kt:coil-compose", version.ref = "coil_version" }
 
 # Lifecycle
 lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "runtime-compose" }
+
+# Constraint layout
+constraint-layout = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraint_version"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

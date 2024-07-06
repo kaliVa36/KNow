@@ -7,7 +7,7 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import com.android.know.ui.feature.article.ArticleScreen
+import com.android.know.ui.feature.search.SearchScreen
 import com.android.know.ui.feature.article.ArticleViewModel
 import com.android.know.ui.feature.home.HomeScreen
 import com.android.know.ui.feature.home.HomeViewModel
@@ -33,8 +33,10 @@ fun NavHost(navController: NavHostController) {
                 viewModel.getArticle(backStackEntry.arguments?.getString(NavigationParams.ID).orEmpty())
             }
             val article by viewModel.articleState.collectAsStateWithLifecycle()
+            SearchScreen(searchValue = "", onSearchValueChange = {}) {
 
-            ArticleScreen(articleEntity = article)
+            }
+            //ArticleScreen(articleEntity = article)
         }
     }
 }

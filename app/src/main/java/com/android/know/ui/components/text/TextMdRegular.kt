@@ -2,6 +2,7 @@ package com.android.know.ui.components.text
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.Font
@@ -14,6 +15,7 @@ import com.android.know.ui.FontWeightConst
 @Composable
 fun TextMdRegular(
     text: String,
+    modifier: Modifier = Modifier,
     color: Color = colorResource(id = R.color.black).copy(0.4f),
 ) {
     Text(
@@ -22,6 +24,7 @@ fun TextMdRegular(
         fontSize = 16.sp,
         lineHeight = 24.sp,
         fontFamily = FontFamily(Font(R.font.inter)),
-        fontWeight = FontWeight(FontWeightConst.REGULAR)
+        fontWeight = FontWeight(FontWeightConst.REGULAR),
+        modifier = modifier
     )
 }
