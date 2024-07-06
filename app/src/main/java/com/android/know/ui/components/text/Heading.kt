@@ -8,6 +8,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.android.know.R
+import com.android.know.ui.FontWeightConst
 
 @Composable
 fun Heading(text: String) {
@@ -15,7 +16,7 @@ fun Heading(text: String) {
         text = text,
         fontSize = 28.sp,
         fontFamily = FontFamily(Font(R.font.inter)),
-        fontWeight = FontWeight(600),
+        fontWeight = FontWeight(FontWeightConst.SEMI_BOLD),
         lineHeight = 24.sp,
         color = colorResource(id = R.color.text_tertiary)
     )

@@ -9,6 +9,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.android.know.R
+import com.android.know.ui.FontWeightConst
 
 @Composable
 fun TextMdRegular(
@@ -21,6 +22,6 @@ fun TextMdRegular(
         fontSize = 16.sp,
         lineHeight = 24.sp,
         fontFamily = FontFamily(Font(R.font.inter)),
-        fontWeight = FontWeight(400)
+        fontWeight = FontWeight(FontWeightConst.REGULAR)
     )
 }

@@ -9,6 +9,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.android.know.R
+import com.android.know.ui.FontWeightConst
 
 @Composable
 fun TextXsMedium(
@@ -20,7 +21,7 @@ fun TextXsMedium(
         fontSize = 12.sp,
         lineHeight = 18.sp,
         fontFamily = FontFamily(Font(R.font.inter)),
-        fontWeight = FontWeight(500),
+        fontWeight = FontWeight(FontWeightConst.MEDIUM),
         color = color
     )
 }
