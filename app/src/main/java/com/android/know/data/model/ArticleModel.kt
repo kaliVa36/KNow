@@ -10,8 +10,8 @@ data class ArticleModel(
     val title: String?,
     @SerializedName("description")
     val description: String?,
-    @SerializedName("url")
-    val url: String?
+    @SerializedName("urlToImage")
+    val urlToImage: String?
 )
 
 data class SourceModel(

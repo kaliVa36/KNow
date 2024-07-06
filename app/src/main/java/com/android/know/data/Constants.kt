@@ -14,10 +14,10 @@ object QueryParameters {
     const val CATEGORY = "category"
     const val TO = "to"
     const val PAGE = "page"
+    const val SOURCE = "sources"
 }
 
 // TODO: Delete
 object Default {
-    const val DEFAULT_COUNTRY = "bg"
-    const val DEFAULT_CATEGORY = "business"
+    const val DEFAULT_COUNTRY = "us"
 }

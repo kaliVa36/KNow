@@ -105,4 +105,10 @@ dependencies {
     // Gson
     implementation(libs.google.gson)
     implementation(libs.retrofit.converter.gson)
+
+    // Coil
+    implementation(libs.coil)
+
+    // Lifecycle
+    implementation(libs.lifecycle.runtime.compose)
 }

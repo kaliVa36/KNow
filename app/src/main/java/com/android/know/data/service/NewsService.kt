@@ -23,8 +23,8 @@ interface NewsService {
 
     @GET(TOP_HEADLINES)
     suspend fun getTopHeadlines(
-        @Query(QueryParameters.COUNTRY) country: String = Default.DEFAULT_COUNTRY,
-        @Query(QueryParameters.CATEGORY) category: String = Default.DEFAULT_CATEGORY,
+        @Query(QueryParameters.COUNTRY) country: String? = Default.DEFAULT_COUNTRY,
+        @Query(QueryParameters.CATEGORY) category: String? = null,
         @Query(QueryParameters.PAGE) page: Int = 1,
     ): Response<NewsData>
 }

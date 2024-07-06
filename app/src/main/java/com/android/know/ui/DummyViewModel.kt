@@ -15,7 +15,7 @@ class DummyViewModel(private val newsUseCase: NewsUseCase, private val topHeadli
                 onFailure = { Log.d("NEWS", it.message ?: "") }
             )
             // Top headlines test
-            topHeadlinesUseCase().fold(
+            topHeadlinesUseCase("").fold(
                 onSuccess = { Log.d("TOP-HEADLINES", it.toString()) },
                 onFailure = { Log.d("TOP-HEADLINES", it.message ?: "") }
             )

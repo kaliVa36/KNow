@@ -12,7 +12,7 @@ import com.android.know.R
 import com.android.know.ui.FontWeightConst
 
 @Composable
-fun TextMedium(
+fun TextSmMedium(
     text: String,
     color: Color = colorResource(id = R.color.text_secondary),
 ) {
