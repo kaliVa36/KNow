@@ -26,7 +26,7 @@ import com.android.know.ui.components.text.Heading
 @Composable
 fun HomeScreen(
     homeScreenData: HomeScreenData,
-    onCategoryClick: (ArticleCategories) -> Unit
+    onCategoryClick: (ArticleCategories) -> Unit,
 ) {
     BoxWithConstraints {
         val height = maxHeight
@@ -43,7 +43,11 @@ fun HomeScreen(
             LazyRow(modifier = Modifier.fillMaxWidth()) {
                 items(ArticleCategories.entries) {
                     Spacer(modifier = Modifier.width(4.dp))
-                    CategoryUI(category = stringResource(id = it.value), onClick = { onCategoryClick(it) }, isSelected = it == homeScreenData.selectedCategory)
+                    CategoryUI(
+                        category = stringResource(id = it.value),
+                        onClick = { onCategoryClick(it) },
+                        isSelected = it == homeScreenData.selectedCategory
+                    )
                 }
             }
             Spacer(modifier = Modifier.height(12.dp))

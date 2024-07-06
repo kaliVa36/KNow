@@ -22,7 +22,6 @@ import androidx.compose.ui.unit.sp
 import com.android.know.R
 import com.android.know.ui.TrailingDotConst
 
-// TODO: Sport section bug
 @Composable
 fun ExpandableText(
     modifier: Modifier = Modifier,
@@ -43,7 +42,7 @@ fun ExpandableText(
                 .animateContentSize(),
             text = buildAnnotatedString {
                 if (isVisualOverflow) {
-                    val adjustText = text.substring(startIndex = TrailingDotConst.START_INDEX, endIndex = lastCharIndex)
+                    val adjustText = text.substring(startIndex = TrailingDotConst.START_INDEX, endIndex = lastCharIndex.coerceAtMost(text.length))
                         .dropLastWhile { Character.isWhitespace(it) || it == TrailingDotConst.DOT }
                     append(adjustText)
                     append(stringResource(id = R.string.trailing_dots))
