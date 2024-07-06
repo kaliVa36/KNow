@@ -17,12 +17,14 @@ interface NewsService {
         @Query(QueryParameters.FROM) from: String? = null,
         @Query(QueryParameters.SORT_BY) sortBy: String? = null,
         @Query(QueryParameters.DOMAIN) domain: String? = null,
-        @Query("to") to: String? = null,
+        @Query(QueryParameters.TO) to: String? = null,
+        @Query(QueryParameters.PAGE) page: Int = 1
     ): Response<NewsData>
 
     @GET(TOP_HEADLINES)
     suspend fun getTopHeadlines(
         @Query(QueryParameters.COUNTRY) country: String = Default.DEFAULT_COUNTRY,
-        @Query(QueryParameters.CATEGORY) category: String = Default.DEFAULT_CATEGORY
+        @Query(QueryParameters.CATEGORY) category: String = Default.DEFAULT_CATEGORY,
+        @Query(QueryParameters.PAGE) page: Int = 1,
     ): Response<NewsData>
 }

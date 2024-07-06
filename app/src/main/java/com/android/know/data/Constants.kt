@@ -12,6 +12,8 @@ object QueryParameters {
     const val DOMAIN = "domains"
     const val COUNTRY = "country"
     const val CATEGORY = "category"
+    const val TO = "to"
+    const val PAGE = "page"
 }
 
 // TODO: Delete
