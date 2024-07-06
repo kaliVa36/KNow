@@ -12,4 +12,11 @@ class NewsRepositoryImpl(private val newsDataSource: NewsDataSource) : NewsRepos
             onFailure = { Result.failure(Throwable(it)) }
         )
     }
+
+    override suspend fun getTopHeadlines(): Result<List<ArticleEntity>> {
+        return newsDataSource.getTopHeadlines().fold(
+            onSuccess = { articleData -> Result.success(articleData.articles?.map { it.toArticleEntity() } ?: listOf()) },
+            onFailure = { Result.failure(Throwable(it)) }
+        )
+    }
 }
