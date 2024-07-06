@@ -1,5 +1,6 @@
 package com.android.know
 
+import com.android.know.data.BASE_URL
 import com.android.know.data.datasource.NewsDataSource
 import com.android.know.data.datasource.NewsDataSourceImpl
 import com.android.know.data.repository.NewsRepositoryImpl
@@ -41,7 +42,7 @@ val appModule = module {
         Retrofit.Builder()
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("https://newsapi.org")
+            .baseUrl(BASE_URL)
             .build()
     }
 
