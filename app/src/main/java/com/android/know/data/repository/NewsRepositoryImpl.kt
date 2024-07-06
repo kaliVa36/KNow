@@ -6,17 +6,39 @@ import com.android.know.domain.entity.ArticleEntity
 import com.android.know.domain.repository.NewsRepository
 
 class NewsRepositoryImpl(private val newsDataSource: NewsDataSource) : NewsRepository {
+    override var articles: List<ArticleEntity> = listOf()
+
     override suspend fun getNews(): Result<List<ArticleEntity>> {
         return newsDataSource.getNews().fold(
-            onSuccess = { articleData -> Result.success(articleData.articles?.map { it.toArticleEntity() } ?: listOf()) },
-            onFailure = { Result.failure(Throwable(it)) }
+            onSuccess = { articleData ->
+                articles = articleData.articles?.mapIndexed { index, articleModel ->
+                    articleModel.toArticleEntity(index)
+                } ?: listOf()
+                Result.success(articles)
+            },
+            onFailure = {
+                articles = listOf()
+                Result.failure(Throwable(it))
+            }
         )
     }
 
     override suspend fun getTopHeadlines(category: String): Result<List<ArticleEntity>> {
         return newsDataSource.getTopHeadlines(category).fold(
-            onSuccess = { articleData -> Result.success(articleData.articles?.map { it.toArticleEntity() } ?: listOf()) },
-            onFailure = { Result.failure(Throwable(it)) }
+            onSuccess = { articleData ->
+                articles = articleData.articles?.mapIndexed { index, articleModel ->
+                    articleModel.toArticleEntity(index)
+                } ?: listOf()
+                Result.success(articles)
+            },
+            onFailure = {
+                articles = listOf()
+                Result.failure(Throwable(it))
+            }
         )
+    }
+
+    override fun getArticleById(id: String): ArticleEntity? {
+        return articles.firstOrNull { it.id == id }
     }
 }
