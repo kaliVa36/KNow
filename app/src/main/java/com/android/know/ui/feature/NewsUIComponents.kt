@@ -32,7 +32,7 @@ import com.android.know.domain.entity.ArticleEntity
 import com.android.know.ui.ImageContentDescription
 import com.android.know.ui.components.ReadMore
 import com.android.know.ui.components.SaveArticle
-import com.android.know.ui.components.text.ExpandableText
+import com.android.know.ui.components.text.TextSummary
 import com.android.know.ui.components.text.Heading
 import com.android.know.ui.components.text.TextMdRegular
 import com.android.know.ui.components.text.TextSmMedium
@@ -117,7 +117,7 @@ fun ArticleSummaryUI(
             TextMdRegular(text = article.source.name, colorResource(id = R.color.black))
             Spacer(modifier = Modifier.height(8.dp))
             if (isArticleSummary) {
-                ExpandableText(
+                TextSummary(
                     style = headingStyle(),
                     text = article.title
                 )

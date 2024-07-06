@@ -24,13 +24,13 @@ fun NavHost(navController: NavHostController) {
             val viewModel = getViewModel<HomeViewModel>()
             val homeData by viewModel.homeScreenData.collectAsStateWithLifecycle()
             HomeScreen(homeScreenData = homeData, onCategoryClick = viewModel::setCategory) {
-                navController.navigate(ARTICLE_SCREEN, bundleOf("id" to it))
+                navController.navigate(ARTICLE_SCREEN, bundleOf(NavigationParams.ID to it))
             }
         }
         composable(ARTICLE_SCREEN) { backStackEntry ->
             val viewModel = getViewModel<ArticleViewModel>()
             LaunchedEffect(null) {
-                viewModel.getArticle(backStackEntry.arguments?.getString("id").orEmpty())
+                viewModel.getArticle(backStackEntry.arguments?.getString(NavigationParams.ID).orEmpty())
             }
             val article by viewModel.articleState.collectAsStateWithLifecycle()
 

@@ -23,7 +23,7 @@ import com.android.know.R
 import com.android.know.ui.TrailingDotConst
 
 @Composable
-fun ExpandableText(
+fun TextSummary(
     modifier: Modifier = Modifier,
     textModifier: Modifier = Modifier,
     style: TextStyle = LocalTextStyle.current,
