@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -32,19 +33,23 @@ import com.android.know.ui.ImageContentDescription
 import com.android.know.ui.components.ReadMore
 import com.android.know.ui.components.SaveArticle
 import com.android.know.ui.components.text.ExpandableText
+import com.android.know.ui.components.text.Heading
 import com.android.know.ui.components.text.TextMdRegular
+import com.android.know.ui.components.text.TextSmMedium
 import com.android.know.ui.components.text.headingStyle
 
 @Composable
 fun ArticleSummaryWithImageUI(
     article: ArticleEntity,
     height: Dp,
+    isArticleSummary: Boolean = true,
+    onClick: (String) -> Unit = {},
 ) {
     val unit = height / 6
+    val modifier = if (isArticleSummary) { Modifier.height(height) } else { Modifier.heightIn(height) }
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .height(height)
             .clip(RoundedCornerShape(16.dp))
             .shadow(
                 elevation = 2.dp,
@@ -77,13 +82,19 @@ fun ArticleSummaryWithImageUI(
                 is AsyncImagePainter.State.Success -> SubcomposeAsyncImageContent()
             }
         }
-        ArticleSummaryUI(article, height, isImage = true)
+        ArticleSummaryUI(article, height, isImage = true, onClick = onClick, isArticleSummary = isArticleSummary)
     }
 }
 
 
 @Composable
-fun ArticleSummaryUI(article: ArticleEntity, height: Dp, isImage: Boolean = false) {
+fun ArticleSummaryUI(
+    article: ArticleEntity,
+    height: Dp,
+    isImage: Boolean = false,
+    isArticleSummary: Boolean = true,
+    onClick: (String) -> Unit = {},
+) {
     val unit = height / 6
     val modifier = if (isImage) {
         Modifier
@@ -97,18 +108,22 @@ fun ArticleSummaryUI(article: ArticleEntity, height: Dp, isImage: Boolean = fals
             )
             .background(color = colorResource(id = R.color.white))
     }
+    val infoModifier = if (isArticleSummary) { Modifier.height(unit * 2) } else { Modifier.heightIn(unit * 2)}
     Column(modifier = modifier) {
         Column(
-            modifier = Modifier
-                .height(unit * 2)
+            modifier = infoModifier
                 .padding(10.dp)
         ) {
             TextMdRegular(text = article.source.name, colorResource(id = R.color.black))
             Spacer(modifier = Modifier.height(8.dp))
-            ExpandableText(
-                style = headingStyle(),
-                text = article.title
-            )
+            if (isArticleSummary) {
+                ExpandableText(
+                    style = headingStyle(),
+                    text = article.title
+                )
+            } else {
+                Heading(text = article.title)
+            }
         }
         Spacer(modifier = Modifier.height(4.dp))
         Divider(modifier = Modifier.fillMaxWidth(), thickness = 1.dp, color = colorResource(id = R.color.background))
@@ -118,9 +133,13 @@ fun ArticleSummaryUI(article: ArticleEntity, height: Dp, isImage: Boolean = fals
                 .height(unit)
                 .padding(10.dp)
         ) {
-            ReadMore { }
-            Spacer(modifier = Modifier.width(8.dp))
-            SaveArticle { }
+            if (isArticleSummary) {
+                ReadMore { onClick(article.id) }
+                Spacer(modifier = Modifier.width(8.dp))
+                SaveArticle { }
+            } else {
+                TextSmMedium(text = article.author)
+            }
         }
     }
 }
