@@ -35,7 +35,8 @@ fun SearchScreen(
     onSearchValueChange: (String) -> Unit,
     onSearch: () -> Unit,
     onSortClick: (ArticleSorting) -> Unit,
-    onRemoveClick: () -> Unit
+    onRemoveClick: () -> Unit,
+    onReadMore: (String) -> Unit
 ) {
     BoxWithConstraints {
         val height = maxHeight
@@ -85,8 +86,8 @@ fun SearchScreen(
                     }
             ) {
                 if (searchData.articles.isNotEmpty()) {
-                    searchData.articles.forEach {
-                        ArticleSummaryWithImageUI(article = it, height = height / 2)
+                    searchData.articles.forEach { article ->
+                        ArticleSummaryWithImageUI(article = article, height = height / 2) { onReadMore(article.id) }
                         Spacer(modifier = Modifier.height(10.dp))
                     }
                 } else {

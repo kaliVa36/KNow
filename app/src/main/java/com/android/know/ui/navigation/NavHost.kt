@@ -25,9 +25,12 @@ fun NavHost(navController: NavHostController) {
         composable(NEWS_SCREEN) {
             val viewModel = getViewModel<HomeViewModel>()
             val homeData by viewModel.homeScreenData.collectAsStateWithLifecycle()
-            HomeScreen(homeScreenData = homeData, onCategoryClick = viewModel::setCategory) {
-                navController.navigate(SEARCH_SCREEN, bundleOf(NavigationParams.ID to it))
-            }
+            HomeScreen(
+                homeScreenData = homeData,
+                onCategoryClick = viewModel::setCategory,
+                onSearchClick = { navController.navigate(SEARCH_SCREEN) },
+                onArticleClick = { navController.navigate(ARTICLE_SCREEN, bundleOf(NavigationParams.ID to it)) }
+            )
         }
         composable(ARTICLE_SCREEN) { backStackEntry ->
             val viewModel = getViewModel<ArticleViewModel>()
@@ -46,7 +49,8 @@ fun NavHost(navController: NavHostController) {
                 onSearchValueChange = viewModel::onValueChange,
                 onSearch = viewModel::onSearch,
                 onRemoveClick = viewModel::onRemove,
-                onSortClick = viewModel::onSortClick
+                onSortClick = viewModel::onSortClick,
+                onReadMore = { navController.navigate(ARTICLE_SCREEN, bundleOf(NavigationParams.ID to it)) }
             )
         }
     }
