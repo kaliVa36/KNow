@@ -6,4 +6,7 @@ import com.android.know.ui.components.category.ArticleCategories
 data class HomeScreenData(
     val articles: List<ArticleEntity> = listOf(),
     val selectedCategory: ArticleCategories = ArticleCategories.GENERAL,
+    val savedArticles: Articles = Articles()
 )
+
+class Articles(val data: List<ArticleEntity> = listOf())

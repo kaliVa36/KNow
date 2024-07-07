@@ -23,9 +23,12 @@ fun NavHost(navController: NavHostController) {
         composable(NEWS_SCREEN) {
             val viewModel = getViewModel<HomeViewModel>()
             val homeData by viewModel.homeScreenData.collectAsStateWithLifecycle()
-            HomeScreen(homeScreenData = homeData, onCategoryClick = viewModel::setCategory) {
-                navController.navigate(ARTICLE_SCREEN, bundleOf(NavigationParams.ID to it))
-            }
+            HomeScreen(
+                homeScreenData = homeData,
+                onCategoryClick = viewModel::setCategory,
+                onArticleClick = { navController.navigate(ARTICLE_SCREEN, bundleOf(NavigationParams.ID to it)) },
+                onArticleSave = viewModel::saveArticle
+            )
         }
         composable(ARTICLE_SCREEN) { backStackEntry ->
             val viewModel = getViewModel<ArticleViewModel>()

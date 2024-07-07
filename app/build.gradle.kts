@@ -3,6 +3,8 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kapt)
+    alias(libs.plugins.compose)
 }
 
 android {
@@ -111,4 +113,8 @@ dependencies {
 
     // Lifecycle
     implementation(libs.lifecycle.runtime.compose)
+
+    // Room
+    implementation(libs.room.kts)
+    kapt(libs.room.compiler)
 }

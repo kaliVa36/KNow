@@ -8,6 +8,8 @@ espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.3"
 activityCompose = "1.9.0"
 composeBom = "2023.08.00"
+kapt = "2.0.0"
+compose_plugin_version = "2.0.0"
 
 # Accompanist
 accompanist_version = "0.31.5-beta"
@@ -31,6 +33,9 @@ coil_version = "2.6.0"
 
 # Lifecycle
 runtime-compose = '2.8.3'
+
+# Room
+room_version = "2.6.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -72,7 +77,13 @@ coil = { module = "io.coil-kt:coil-compose", version.ref = "coil_version" }
 # Lifecycle
 lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "runtime-compose" }
 
+# Room
+room-kts = { module = "androidx.room:room-ktx", version.ref = "room_version" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room_version" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "compose_plugin_version" }
+kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kapt" }
 

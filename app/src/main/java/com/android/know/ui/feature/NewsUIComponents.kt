@@ -44,9 +44,15 @@ fun ArticleSummaryWithImageUI(
     height: Dp,
     isArticleSummary: Boolean = true,
     onClick: (String) -> Unit = {},
+    isSaved: Boolean = false,
+    onSave: () -> Unit,
 ) {
     val unit = height / 6
-    val modifier = if (isArticleSummary) { Modifier.height(height) } else { Modifier.heightIn(height) }
+    val modifier = if (isArticleSummary) {
+        Modifier.height(height)
+    } else {
+        Modifier.heightIn(height)
+    }
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -82,7 +88,15 @@ fun ArticleSummaryWithImageUI(
                 is AsyncImagePainter.State.Success -> SubcomposeAsyncImageContent()
             }
         }
-        ArticleSummaryUI(article, height, isImage = true, onClick = onClick, isArticleSummary = isArticleSummary)
+        ArticleSummaryUI(
+            article,
+            height,
+            isImage = true,
+            onClick = onClick,
+            isArticleSummary = isArticleSummary,
+            isSaved = isSaved,
+            onSave = onSave
+        )
     }
 }
 
@@ -94,6 +108,8 @@ fun ArticleSummaryUI(
     isImage: Boolean = false,
     isArticleSummary: Boolean = true,
     onClick: (String) -> Unit = {},
+    isSaved: Boolean = false,
+    onSave: () -> Unit,
 ) {
     val unit = height / 6
     val modifier = if (isImage) {
@@ -108,13 +124,17 @@ fun ArticleSummaryUI(
             )
             .background(color = colorResource(id = R.color.white))
     }
-    val infoModifier = if (isArticleSummary) { Modifier.height(unit * 2) } else { Modifier.heightIn(unit * 2)}
+    val infoModifier = if (isArticleSummary) {
+        Modifier.height(unit * 2)
+    } else {
+        Modifier.heightIn(unit * 2)
+    }
     Column(modifier = modifier) {
         Column(
             modifier = infoModifier
                 .padding(10.dp)
         ) {
-            TextMdRegular(text = article.source.name, colorResource(id = R.color.black))
+            TextMdRegular(text = article.sourceName, colorResource(id = R.color.black))
             Spacer(modifier = Modifier.height(8.dp))
             if (isArticleSummary) {
                 TextSummary(
@@ -136,7 +156,7 @@ fun ArticleSummaryUI(
             if (isArticleSummary) {
                 ReadMore { onClick(article.id) }
                 Spacer(modifier = Modifier.width(8.dp))
-                SaveArticle { }
+                SaveArticle(isSaved = isSaved, onClick = onSave)
             } else {
                 TextSmMedium(text = article.author)
             }

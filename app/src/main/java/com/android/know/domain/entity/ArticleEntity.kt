@@ -1,8 +1,15 @@
 package com.android.know.domain.entity
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
 data class ArticleEntity(
+    @PrimaryKey(autoGenerate = true)
+    val roomId: Int = 0,
     val id: String = "",
-    val source: SourceEntity = SourceEntity(),
+    val sourceId: String = "",
+    val sourceName: String = "",
     val author: String = "",
     val title: String = "",
     val description: String = "",

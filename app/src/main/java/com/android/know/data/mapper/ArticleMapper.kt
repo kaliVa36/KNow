@@ -12,7 +12,8 @@ fun ArticleModel.toArticleEntity(index: Int): ArticleEntity {
 
     return ArticleEntity(
         id = index.toString(),
-        source = sourceEntity,
+        sourceId = sourceEntity.id,
+        sourceName = sourceEntity.name,
         title = title.orEmpty(),
         description = description.orEmpty(),
         author = author.orEmpty(),

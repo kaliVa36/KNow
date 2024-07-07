@@ -54,9 +54,9 @@ fun HomeScreen(
             Column(modifier = Modifier.fillMaxWidth()) {
                 homeScreenData.articles.forEach {
                     if (it.url.isNotBlank()) {
-                        ArticleSummaryWithImageUI(article = it, height = height / 2)
+                        ArticleSummaryWithImageUI(article = it, height = height / 2) {}
                     } else {
-                        ArticleSummaryUI(article = it, height = height / 2)
+                        ArticleSummaryUI(article = it, height = height / 2) {}
                     }
                     Spacer(modifier = Modifier.height(10.dp))
                 }

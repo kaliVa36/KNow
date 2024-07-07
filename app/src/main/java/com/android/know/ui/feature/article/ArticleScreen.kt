@@ -32,9 +32,9 @@ fun ArticleScreen(articleEntity: ArticleEntity) {
                 .padding(10.dp)
         ) {
             if (articleEntity.url.isNotBlank()) {
-                ArticleSummaryWithImageUI(article = articleEntity, height = height / 2, isArticleSummary = false)
+                ArticleSummaryWithImageUI(article = articleEntity, height = height / 2, isArticleSummary = false) {}
             } else {
-                ArticleSummaryUI(article = articleEntity, height = height / 2, isArticleSummary = false)
+                ArticleSummaryUI(article = articleEntity, height = height / 2, isArticleSummary = false) {}
             }
             Spacer(modifier = Modifier.height(12.dp))
             TextSmMedium(text = articleEntity.description)

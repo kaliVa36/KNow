@@ -19,6 +19,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.android.know.R
+import com.android.know.domain.entity.ArticleEntity
 import com.android.know.ui.components.category.ArticleCategories
 import com.android.know.ui.components.category.CategoryUI
 import com.android.know.ui.components.text.Heading
@@ -29,7 +30,8 @@ import com.android.know.ui.feature.ArticleSummaryWithImageUI
 fun HomeScreen(
     homeScreenData: HomeScreenData,
     onCategoryClick: (ArticleCategories) -> Unit,
-    onArticleClick: (String) -> Unit
+    onArticleClick: (String) -> Unit,
+    onArticleSave: (ArticleEntity) -> Unit,
 ) {
     BoxWithConstraints {
         val height = maxHeight
@@ -57,9 +59,21 @@ fun HomeScreen(
             Column(modifier = Modifier.fillMaxWidth()) {
                 homeScreenData.articles.forEach {
                     if (it.url.isNotBlank()) {
-                        ArticleSummaryWithImageUI(article = it, height = height / 2) { id -> onArticleClick(id) }
+                        ArticleSummaryWithImageUI(
+                            article = it,
+                            height = height / 2,
+                            onClick = { id -> onArticleClick(id) },
+                            onSave = { onArticleSave(it) },
+                            isSaved = homeScreenData.savedArticles.data.any { article -> article.title == it.title }
+                        )
                     } else {
-                        ArticleSummaryUI(article = it, height = height / 2) { id -> onArticleClick(id) }
+                        ArticleSummaryUI(
+                            article = it,
+                            height = height / 2,
+                            onClick = { id -> onArticleClick(id) },
+                            onSave = { onArticleSave(it) },
+                            isSaved = homeScreenData.savedArticles.data.contains(it)
+                        )
                     }
                     Spacer(modifier = Modifier.height(10.dp))
                 }

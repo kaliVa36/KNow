@@ -1,7 +1,12 @@
 package com.android.know
 
+import android.app.Application
 import androidx.lifecycle.SavedStateHandle
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import com.android.know.data.BASE_URL
+import com.android.know.data.dao.NewsDao
+import com.android.know.data.database.NewsDatabase
 import com.android.know.data.datasource.NewsDataSource
 import com.android.know.data.datasource.NewsDataSourceImpl
 import com.android.know.data.repository.NewsRepositoryImpl
@@ -16,12 +21,17 @@ import com.android.know.ui.feature.home.HomeViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.module.Module
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 const val OKHTTP_CLIENT_TIMEOUT = 60L
+
+private val databaseModule = module {
+    single { get<NewsDatabase>().dao }
+}
 
 val appModule = module {
     factory { KNowApplication() }
@@ -55,6 +65,25 @@ val appModule = module {
     factory { TopHeadlinesUseCase(get()) }
     factory { ArticleByIdUseCase(get()) }
     viewModel { DummyViewModel(newsUseCase = get(), get()) }
-    viewModel { HomeViewModel(get()) }
     viewModel { ArticleViewModel(get()) }
+}
+
+fun provideDataBase(application: Application): NewsDatabase =
+    Room.databaseBuilder(
+        application,
+        NewsDatabase::class.java,
+        "table_post"
+    ).
+    fallbackToDestructiveMigration().build()
+
+fun provideDao(postDataBase: NewsDatabase): NewsDao = postDataBase.dao
+
+
+val dataBaseModule = module {
+    single { provideDataBase(get()) }
+    single { provideDao(get()) }
+}
+
+val newsViewModel = module {
+    viewModel { HomeViewModel(get(), get()) }
 }
