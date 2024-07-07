@@ -21,3 +21,5 @@ object TrailingDotConst {
     const val START_INDEX = 0
     const val NEW_LINE = '\n'
 }
+
+const val REMOVED_DATA = "[Removed]"
