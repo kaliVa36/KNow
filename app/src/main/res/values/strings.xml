@@ -12,4 +12,9 @@
     <string name="technology">Technology</string>
     <string name="search">Search</string>
     <string name="search_placeholder">Search for something here</string>
+    <string name="search_empty_placeholder">Know now - start searching..</string>
+    <string name="sort_by">Sort by</string>
+    <string name="relevancy">Relevancy</string>
+    <string name="popularity">Popularity</string>
+    <string name="date">Date</string>
 </resources>

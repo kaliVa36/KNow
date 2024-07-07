@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 class DummyViewModel(private val newsUseCase: NewsUseCase, private val topHeadlinesUseCase: TopHeadlinesUseCase) : ViewModel() {
     init {
         viewModelScope.launch {
-            newsUseCase().fold(
+            newsUseCase("").fold(
                 onSuccess = { Log.d("NEWS", it.toString()) },
                 onFailure = { Log.d("NEWS", it.message ?: "") }
             )

@@ -58,5 +58,5 @@ val appModule = module {
     viewModel { DummyViewModel(newsUseCase = get(), get()) }
     viewModel { HomeViewModel(get()) }
     viewModel { ArticleViewModel(get()) }
-    viewModel { SearchViewModel() }
+    viewModel { SearchViewModel(get()) }
 }

@@ -41,7 +41,13 @@ fun NavHost(navController: NavHostController) {
             val viewModel = getViewModel<SearchViewModel>()
             val searchData by viewModel.searchUIState.collectAsStateWithLifecycle()
 
-            SearchScreen(searchData = searchData, onSearchValueChange = viewModel::onValueChange) {}
+            SearchScreen(
+                searchData = searchData,
+                onSearchValueChange = viewModel::onValueChange,
+                onSearch = viewModel::onSearch,
+                onRemoveClick = viewModel::onRemove,
+                onSortClick = viewModel::onSortClick
+            )
         }
     }
 }
