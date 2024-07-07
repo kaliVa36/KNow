@@ -1,6 +1,5 @@
 package com.android.know
 
-import androidx.lifecycle.SavedStateHandle
 import com.android.know.data.BASE_URL
 import com.android.know.data.datasource.NewsDataSource
 import com.android.know.data.datasource.NewsDataSourceImpl
@@ -10,9 +9,9 @@ import com.android.know.domain.repository.NewsRepository
 import com.android.know.domain.usecase.ArticleByIdUseCase
 import com.android.know.domain.usecase.NewsUseCase
 import com.android.know.domain.usecase.TopHeadlinesUseCase
-import com.android.know.ui.DummyViewModel
 import com.android.know.ui.feature.article.ArticleViewModel
 import com.android.know.ui.feature.home.HomeViewModel
+import com.android.know.ui.feature.search.SearchViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -54,7 +53,7 @@ val appModule = module {
     factory { NewsUseCase(get()) }
     factory { TopHeadlinesUseCase(get()) }
     factory { ArticleByIdUseCase(get()) }
-    viewModel { DummyViewModel(newsUseCase = get(), get()) }
     viewModel { HomeViewModel(get()) }
     viewModel { ArticleViewModel(get()) }
+    viewModel { SearchViewModel(get()) }
 }

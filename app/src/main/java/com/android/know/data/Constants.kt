@@ -21,3 +21,5 @@ object QueryParameters {
 object Default {
     const val DEFAULT_COUNTRY = "us"
 }
+
+const val WHITE_SPACE = " "

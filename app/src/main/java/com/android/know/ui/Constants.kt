@@ -4,6 +4,8 @@ object ImageContentDescription {
     const val ARROW = "arrow"
     const val BOOKMARK = "bookmark"
     const val ASYNC_IMAGE = "async_image"
+    const val SEARCH = "search"
+    const val REMOVE = "remove"
 }
 
 object FontWeightConst {

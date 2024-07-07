@@ -111,4 +111,7 @@ dependencies {
 
     // Lifecycle
     implementation(libs.lifecycle.runtime.compose)
+
+    // Constraint layout
+    implementation(libs.constraint.layout)
 }

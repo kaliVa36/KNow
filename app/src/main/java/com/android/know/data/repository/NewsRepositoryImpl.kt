@@ -8,8 +8,8 @@ import com.android.know.domain.repository.NewsRepository
 class NewsRepositoryImpl(private val newsDataSource: NewsDataSource) : NewsRepository {
     override var articles: List<ArticleEntity> = listOf()
 
-    override suspend fun getNews(): Result<List<ArticleEntity>> {
-        return newsDataSource.getNews().fold(
+    override suspend fun getNews(q: String, sortBy: String?): Result<List<ArticleEntity>> {
+        return newsDataSource.getNews(q = q, sortBy = sortBy).fold(
             onSuccess = { articleData ->
                 articles = articleData.articles?.mapIndexed { index, articleModel ->
                     articleModel.toArticleEntity(index)
