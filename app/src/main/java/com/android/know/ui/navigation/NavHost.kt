@@ -11,6 +11,8 @@ import com.android.know.ui.feature.article.ArticleScreen
 import com.android.know.ui.feature.article.ArticleViewModel
 import com.android.know.ui.feature.home.HomeScreen
 import com.android.know.ui.feature.home.HomeViewModel
+import com.android.know.ui.feature.search.SearchScreen
+import com.android.know.ui.feature.search.SearchViewModel
 import com.android.know.ui.navigate
 import org.koin.androidx.compose.getViewModel
 
@@ -27,7 +29,8 @@ fun NavHost(navController: NavHostController) {
                 homeScreenData = homeData,
                 onCategoryClick = viewModel::setCategory,
                 onArticleClick = { navController.navigate(ARTICLE_SCREEN, bundleOf(NavigationParams.ID to it)) },
-                onArticleSave = viewModel::saveArticle
+                onArticleSave = viewModel::saveArticle,
+                onSearchClick = { navController.navigate(SEARCH_SCREEN) },
             )
         }
         composable(ARTICLE_SCREEN) { backStackEntry ->
@@ -36,8 +39,20 @@ fun NavHost(navController: NavHostController) {
                 viewModel.getArticle(backStackEntry.arguments?.getString(NavigationParams.ID).orEmpty())
             }
             val article by viewModel.articleState.collectAsStateWithLifecycle()
-
             ArticleScreen(articleEntity = article)
+        }
+        composable(SEARCH_SCREEN) {
+            val viewModel = getViewModel<SearchViewModel>()
+            val searchData by viewModel.searchUIState.collectAsStateWithLifecycle()
+
+            SearchScreen(
+                searchData = searchData,
+                onSearchValueChange = viewModel::onValueChange,
+                onSearch = viewModel::onSearch,
+                onRemoveClick = viewModel::onRemove,
+                onSortClick = viewModel::onSortClick,
+                onReadMore = { navController.navigate(ARTICLE_SCREEN, bundleOf(NavigationParams.ID to it)) }
+            )
         }
     }
 }

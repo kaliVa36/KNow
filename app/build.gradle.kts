@@ -117,4 +117,7 @@ dependencies {
     // Room
     implementation(libs.room.kts)
     kapt(libs.room.compiler)
+
+    // Constraint layout
+    implementation(libs.constraint.layout)
 }

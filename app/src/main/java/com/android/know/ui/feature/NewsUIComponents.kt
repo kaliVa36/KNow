@@ -134,7 +134,7 @@ fun ArticleSummaryUI(
             modifier = infoModifier
                 .padding(10.dp)
         ) {
-            TextMdRegular(text = article.sourceName, colorResource(id = R.color.black))
+            TextMdRegular(text = article.sourceName, color = colorResource(id = R.color.black))
             Spacer(modifier = Modifier.height(8.dp))
             if (isArticleSummary) {
                 TextSummary(

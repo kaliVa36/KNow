@@ -37,6 +37,9 @@ runtime-compose = '2.8.3'
 # Room
 room_version = "2.6.1"
 
+# Constraint layout
+constraint_version = "1.0.1"
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -80,6 +83,9 @@ lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-ru
 # Room
 room-kts = { module = "androidx.room:room-ktx", version.ref = "room_version" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room_version" }
+
+# Constraint layout
+constraint-layout = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraint_version"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

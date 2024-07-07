@@ -14,10 +14,7 @@ interface NewsService {
     @GET(NEWS)
     suspend fun getNews(
         @Query(QueryParameters.Q) q: String? = null,
-        @Query(QueryParameters.FROM) from: String? = null,
         @Query(QueryParameters.SORT_BY) sortBy: String? = null,
-        @Query(QueryParameters.DOMAIN) domain: String? = null,
-        @Query(QueryParameters.TO) to: String? = null,
         @Query(QueryParameters.PAGE) page: Int = 1
     ): Response<NewsData>
 

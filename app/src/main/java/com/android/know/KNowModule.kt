@@ -1,9 +1,7 @@
 package com.android.know
 
 import android.app.Application
-import androidx.lifecycle.SavedStateHandle
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import com.android.know.data.BASE_URL
 import com.android.know.data.dao.NewsDao
 import com.android.know.data.database.NewsDatabase
@@ -15,23 +13,18 @@ import com.android.know.domain.repository.NewsRepository
 import com.android.know.domain.usecase.ArticleByIdUseCase
 import com.android.know.domain.usecase.NewsUseCase
 import com.android.know.domain.usecase.TopHeadlinesUseCase
-import com.android.know.ui.DummyViewModel
 import com.android.know.ui.feature.article.ArticleViewModel
 import com.android.know.ui.feature.home.HomeViewModel
+import com.android.know.ui.feature.search.SearchViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.core.module.Module
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 const val OKHTTP_CLIENT_TIMEOUT = 60L
-
-private val databaseModule = module {
-    single { get<NewsDatabase>().dao }
-}
 
 val appModule = module {
     factory { KNowApplication() }
@@ -64,7 +57,7 @@ val appModule = module {
     factory { NewsUseCase(get()) }
     factory { TopHeadlinesUseCase(get()) }
     factory { ArticleByIdUseCase(get()) }
-    viewModel { DummyViewModel(newsUseCase = get(), get()) }
+    viewModel { SearchViewModel(get()) }
     viewModel { ArticleViewModel(get()) }
 }
 
