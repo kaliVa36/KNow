@@ -17,4 +17,5 @@
     <string name="relevancy">Relevancy</string>
     <string name="popularity">Popularity</string>
     <string name="date">Date</string>
+    <string name="saved_articles">Saved articles</string>
 </resources>

@@ -21,11 +21,13 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.android.know.R
+import com.android.know.domain.entity.ArticleEntity
 import com.android.know.ui.ImageContentDescription
 import com.android.know.ui.components.category.ArticleCategories
 import com.android.know.ui.components.category.CategoryUI
@@ -38,7 +40,9 @@ fun HomeScreen(
     homeScreenData: HomeScreenData,
     onCategoryClick: (ArticleCategories) -> Unit,
     onArticleClick: (String) -> Unit,
+    onArticleSave: (ArticleEntity) -> Unit,
     onSearchClick: () -> Unit,
+    onSavedClick: () -> Unit,
 ) {
     BoxWithConstraints {
         val height = maxHeight
@@ -56,13 +60,27 @@ fun HomeScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Heading(text = stringResource(id = R.string.top_headlines))
-                Image(
-                    painter = painterResource(id = R.drawable.search),
-                    contentDescription = ImageContentDescription.SEARCH,
-                    modifier = Modifier
-                        .size(20.dp)
-                        .clickable { onSearchClick() }
-                )
+                Row {
+                    Image(
+                        painter = painterResource(id = R.drawable.bookmark),
+                        contentDescription = ImageContentDescription.BOOKMARK,
+                        modifier = Modifier
+                            .size(20.dp)
+                            .clickable { onSavedClick() },
+                        colorFilter = ColorFilter.tint(colorResource(id = R.color.content_primary)
+                        )
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Image(
+                        painter = painterResource(id = R.drawable.search),
+                        contentDescription = ImageContentDescription.SEARCH,
+                        modifier = Modifier
+                            .size(20.dp)
+                            .clickable { onSearchClick() },
+                        colorFilter = ColorFilter.tint(colorResource(id = R.color.content_primary))
+                    )
+                }
+
             }
             Spacer(modifier = Modifier.height(12.dp))
             LazyRow(modifier = Modifier.fillMaxWidth()) {
@@ -79,9 +97,21 @@ fun HomeScreen(
             Column(modifier = Modifier.fillMaxWidth()) {
                 homeScreenData.articles.forEach {
                     if (it.url.isNotBlank()) {
-                        ArticleSummaryWithImageUI(article = it, height = height / 2) { id -> onArticleClick(id) }
+                        ArticleSummaryWithImageUI(
+                            article = it,
+                            height = height / 2,
+                            onClick = { id -> onArticleClick(id) },
+                            onSave = { onArticleSave(it) },
+                            isSaved = homeScreenData.savedArticles.data.any { article -> article.title == it.title }
+                        )
                     } else {
-                        ArticleSummaryUI(article = it, height = height / 2) { id -> onArticleClick(id) }
+                        ArticleSummaryUI(
+                            article = it,
+                            height = height / 2,
+                            onClick = { id -> onArticleClick(id) },
+                            onSave = { onArticleSave(it) },
+                            isSaved = homeScreenData.savedArticles.data.contains(it)
+                        )
                     }
                     Spacer(modifier = Modifier.height(10.dp))
                 }

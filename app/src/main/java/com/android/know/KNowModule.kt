@@ -1,6 +1,10 @@
 package com.android.know
 
+import android.app.Application
+import androidx.room.Room
 import com.android.know.data.BASE_URL
+import com.android.know.data.dao.NewsDao
+import com.android.know.data.database.NewsDatabase
 import com.android.know.data.datasource.NewsDataSource
 import com.android.know.data.datasource.NewsDataSourceImpl
 import com.android.know.data.repository.NewsRepositoryImpl
@@ -10,7 +14,9 @@ import com.android.know.domain.usecase.ArticleByIdUseCase
 import com.android.know.domain.usecase.NewsUseCase
 import com.android.know.domain.usecase.TopHeadlinesUseCase
 import com.android.know.ui.feature.article.ArticleViewModel
+import com.android.know.ui.feature.article.SavedArticleViewModel
 import com.android.know.ui.feature.home.HomeViewModel
+import com.android.know.ui.feature.saved.SavedArticlesViewModel
 import com.android.know.ui.feature.search.SearchViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -53,7 +59,28 @@ val appModule = module {
     factory { NewsUseCase(get()) }
     factory { TopHeadlinesUseCase(get()) }
     factory { ArticleByIdUseCase(get()) }
-    viewModel { HomeViewModel(get()) }
-    viewModel { ArticleViewModel(get()) }
     viewModel { SearchViewModel(get()) }
+    viewModel { ArticleViewModel(get()) }
+}
+
+fun provideDataBase(application: Application): NewsDatabase =
+    Room.databaseBuilder(
+        application,
+        NewsDatabase::class.java,
+        "table_post"
+    ).
+    fallbackToDestructiveMigration().build()
+
+fun provideDao(postDataBase: NewsDatabase): NewsDao = postDataBase.dao
+
+
+val dataBaseModule = module {
+    single { provideDataBase(get()) }
+    single { provideDao(get()) }
+}
+
+val newsViewModel = module {
+    viewModel { HomeViewModel(get(), get()) }
+    viewModel { SavedArticleViewModel(get()) }
+    viewModel { SavedArticlesViewModel(get()) }
 }

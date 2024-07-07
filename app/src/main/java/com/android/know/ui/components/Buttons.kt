@@ -48,7 +48,7 @@ fun ReadMore(onClick: () -> Unit) {
 }
 
 @Composable
-fun SaveArticle(onClick: () -> Unit) {
+fun SaveArticle(onClick: () -> Unit, isSaved: Boolean) {
     Box(
         modifier = Modifier
             .size(32.dp)
@@ -59,7 +59,13 @@ fun SaveArticle(onClick: () -> Unit) {
             .padding(dimensionResource(id = R.dimen.btn_bookmark_padding))
     ) {
         Image(
-            painter = painterResource(id = R.drawable.bookmark),
+            painter = painterResource(
+                if (isSaved) {
+                    R.drawable.saved_filled
+                } else {
+                    R.drawable.bookmark
+                }
+            ),
             contentDescription = ImageContentDescription.BOOKMARK,
             modifier = Modifier
                 .fillMaxSize()
