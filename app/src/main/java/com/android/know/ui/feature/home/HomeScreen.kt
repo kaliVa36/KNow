@@ -41,6 +41,7 @@ fun HomeScreen(
     onArticleClick: (String) -> Unit,
     onArticleSave: (ArticleEntity) -> Unit,
     onSearchClick: () -> Unit,
+    onSavedClick: () -> Unit,
 ) {
     BoxWithConstraints {
         val height = maxHeight
@@ -58,13 +59,24 @@ fun HomeScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Heading(text = stringResource(id = R.string.top_headlines))
-                Image(
-                    painter = painterResource(id = R.drawable.search),
-                    contentDescription = ImageContentDescription.SEARCH,
-                    modifier = Modifier
-                        .size(20.dp)
-                        .clickable { onSearchClick() }
-                )
+                Row {
+                    Image(
+                        painter = painterResource(id = R.drawable.bookmark),
+                        contentDescription = ImageContentDescription.BOOKMARK,
+                        modifier = Modifier
+                            .size(20.dp)
+                            .clickable { onSavedClick() }
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Image(
+                        painter = painterResource(id = R.drawable.search),
+                        contentDescription = ImageContentDescription.SEARCH,
+                        modifier = Modifier
+                            .size(20.dp)
+                            .clickable { onSearchClick() }
+                    )
+                }
+                
             }
             Spacer(modifier = Modifier.height(12.dp))
             LazyRow(modifier = Modifier.fillMaxWidth()) {

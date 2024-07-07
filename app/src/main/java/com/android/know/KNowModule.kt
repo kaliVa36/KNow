@@ -14,7 +14,9 @@ import com.android.know.domain.usecase.ArticleByIdUseCase
 import com.android.know.domain.usecase.NewsUseCase
 import com.android.know.domain.usecase.TopHeadlinesUseCase
 import com.android.know.ui.feature.article.ArticleViewModel
+import com.android.know.ui.feature.article.SavedArticleViewModel
 import com.android.know.ui.feature.home.HomeViewModel
+import com.android.know.ui.feature.saved.SavedArticlesViewModel
 import com.android.know.ui.feature.search.SearchViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -79,4 +81,6 @@ val dataBaseModule = module {
 
 val newsViewModel = module {
     viewModel { HomeViewModel(get(), get()) }
+    viewModel { SavedArticleViewModel(get()) }
+    viewModel { SavedArticlesViewModel(get()) }
 }
