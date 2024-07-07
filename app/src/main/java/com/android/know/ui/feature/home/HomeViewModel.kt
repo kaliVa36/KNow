@@ -42,7 +42,7 @@ class HomeViewModel(
         }
     }
 
-    fun getSavedArticles() {
+    private fun getSavedArticles() {
         viewModelScope.launch {
            newsDao.getAllRecords().collectLatest { articles ->
                 _homeScreenData.update { it.copy(savedArticles = Articles(articles)) }
@@ -52,7 +52,7 @@ class HomeViewModel(
 
     fun saveArticle(articleEntity: ArticleEntity) {
         viewModelScope.launch {
-            if (!_homeScreenData.value.savedArticles.data.contains(articleEntity)) {
+            if (!_homeScreenData.value.savedArticles.data.any { it.title == articleEntity.title }) {
                 newsDao.upsertDataModel(articleEntity)
                 val savedArticles = _homeScreenData.value.savedArticles.data + articleEntity
                 _homeScreenData.update { it.copy(savedArticles = Articles(savedArticles)) }
