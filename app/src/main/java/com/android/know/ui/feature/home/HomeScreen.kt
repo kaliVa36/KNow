@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import com.android.know.R
 import com.android.know.domain.entity.ArticleEntity
 import com.android.know.ui.ImageContentDescription
+import com.android.know.ui.REMOVED_DATA
 import com.android.know.ui.components.category.ArticleCategories
 import com.android.know.ui.components.category.CategoryUI
 import com.android.know.ui.components.text.Heading
@@ -99,7 +100,7 @@ fun HomeScreen(
             LazyColumn(modifier = Modifier.fillMaxWidth(), state = listState) {
                 itemsIndexed(homeScreenData.articles) { index, articleEntity ->
                     if (listState.isScrollInProgress) setScrolledPosition(index)
-                    if (articleEntity.title != "[Removed]") {
+                    if (articleEntity.title != REMOVED_DATA) {
                         if (articleEntity.url.isNotBlank()) {
                             ArticleSummaryWithImageUI(
                                 article = articleEntity,
