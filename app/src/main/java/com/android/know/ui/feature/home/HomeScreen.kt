@@ -21,6 +21,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -65,7 +66,9 @@ fun HomeScreen(
                         contentDescription = ImageContentDescription.BOOKMARK,
                         modifier = Modifier
                             .size(20.dp)
-                            .clickable { onSavedClick() }
+                            .clickable { onSavedClick() },
+                        colorFilter = ColorFilter.tint(colorResource(id = R.color.content_primary)
+                        )
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Image(
@@ -73,10 +76,11 @@ fun HomeScreen(
                         contentDescription = ImageContentDescription.SEARCH,
                         modifier = Modifier
                             .size(20.dp)
-                            .clickable { onSearchClick() }
+                            .clickable { onSearchClick() },
+                        colorFilter = ColorFilter.tint(colorResource(id = R.color.content_primary))
                     )
                 }
-                
+
             }
             Spacer(modifier = Modifier.height(12.dp))
             LazyRow(modifier = Modifier.fillMaxWidth()) {
