@@ -3,6 +3,7 @@ package com.android.know.ui.feature.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.android.know.data.dao.NewsDao
+import com.android.know.domain.Pagination
 import com.android.know.domain.entity.ArticleEntity
 import com.android.know.domain.usecase.TopHeadlinesUseCase
 import com.android.know.ui.components.category.ArticleCategories
@@ -14,7 +15,7 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val topHeadlinesUseCase: TopHeadlinesUseCase,
-    private val newsDao: NewsDao
+    private val newsDao: NewsDao,
 ) : ViewModel() {
     private val _homeScreenData = MutableStateFlow(HomeScreenData())
     val homeScreenData = _homeScreenData.asStateFlow()
@@ -24,11 +25,14 @@ class HomeViewModel(
         getSavedArticles()
     }
 
-    private fun getTopHeadlines() {
+    private fun getTopHeadlines(page: Int = Pagination.FIRST_PAGE) {
         viewModelScope.launch {
-            topHeadlinesUseCase(_homeScreenData.value.selectedCategory.name.lowercase()).fold(
+            topHeadlinesUseCase(_homeScreenData.value.selectedCategory.name.lowercase(), page = page).fold(
                 onSuccess = { articles ->
-                    _homeScreenData.update { it.copy(articles = articles) }
+                    if (articles.size < Pagination.PAGE_SIZE) {
+                        _homeScreenData.update { it.copy(isLastPage = true) }
+                    }
+                    _homeScreenData.update { it.copy(articles = articles, listSize = articles.size) }
                 },
                 onFailure = {}
             )
@@ -44,7 +48,7 @@ class HomeViewModel(
 
     private fun getSavedArticles() {
         viewModelScope.launch {
-           newsDao.getAllRecords().collectLatest { articles ->
+            newsDao.getAllRecords().collectLatest { articles ->
                 _homeScreenData.update { it.copy(savedArticles = Articles(articles)) }
             }
         }
@@ -58,5 +62,20 @@ class HomeViewModel(
                 _homeScreenData.update { it.copy(savedArticles = Articles(savedArticles)) }
             }
         }
+    }
+
+    fun getScrolledPosition(index: Int) {
+        if (
+            index >= (_homeScreenData.value.listSize * (_homeScreenData.value.pageCounter + Pagination.INDEX_FIX)) -
+            Pagination.LAST_INDEX_FIX && !_homeScreenData.value.isLastPage
+        ) {
+            incrementPage()
+        }
+    }
+
+    private fun incrementPage() {
+        val page = _homeScreenData.value.pageCounter + 1
+        getTopHeadlines(page)
+        _homeScreenData.update { it.copy(pageCounter = page) }
     }
 }

@@ -14,10 +14,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,6 +44,7 @@ fun HomeScreen(
     onArticleSave: (ArticleEntity) -> Unit,
     onSearchClick: () -> Unit,
     onSavedClick: () -> Unit,
+    setScrolledPosition: (Int) -> Unit,
 ) {
     BoxWithConstraints {
         val height = maxHeight
@@ -50,7 +52,6 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .background(colorResource(id = R.color.background))
-                .verticalScroll(rememberScrollState())
                 .padding(10.dp)
         ) {
             Spacer(modifier = Modifier.height(12.dp))
@@ -94,26 +95,30 @@ fun HomeScreen(
                 }
             }
             Spacer(modifier = Modifier.height(12.dp))
-            Column(modifier = Modifier.fillMaxWidth()) {
-                homeScreenData.articles.forEach {
-                    if (it.url.isNotBlank()) {
-                        ArticleSummaryWithImageUI(
-                            article = it,
-                            height = height / 2,
-                            onClick = { id -> onArticleClick(id) },
-                            onSave = { onArticleSave(it) },
-                            isSaved = homeScreenData.savedArticles.data.any { article -> article.title == it.title }
-                        )
-                    } else {
-                        ArticleSummaryUI(
-                            article = it,
-                            height = height / 2,
-                            onClick = { id -> onArticleClick(id) },
-                            onSave = { onArticleSave(it) },
-                            isSaved = homeScreenData.savedArticles.data.contains(it)
-                        )
+            val listState = rememberLazyListState()
+            LazyColumn(modifier = Modifier.fillMaxWidth(), state = listState) {
+                itemsIndexed(homeScreenData.articles) { index, articleEntity ->
+                    if (listState.isScrollInProgress) setScrolledPosition(index)
+                    if (articleEntity.title != "[Removed]") {
+                        if (articleEntity.url.isNotBlank()) {
+                            ArticleSummaryWithImageUI(
+                                article = articleEntity,
+                                height = height / 2,
+                                onClick = { id -> onArticleClick(id) },
+                                onSave = { onArticleSave(articleEntity) },
+                                isSaved = homeScreenData.savedArticles.data.contains(articleEntity)
+                            )
+                        } else {
+                            ArticleSummaryUI(
+                                article = articleEntity,
+                                height = height / 2,
+                                onClick = { id -> onArticleClick(id) },
+                                onSave = { onArticleSave(articleEntity) },
+                                isSaved = homeScreenData.savedArticles.data.contains(articleEntity)
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(10.dp))
                     }
-                    Spacer(modifier = Modifier.height(10.dp))
                 }
             }
         }

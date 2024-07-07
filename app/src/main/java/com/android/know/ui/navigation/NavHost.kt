@@ -34,7 +34,8 @@ fun NavHost(navController: NavHostController) {
                 onArticleClick = { navController.navigate(ARTICLE_SCREEN, bundleOf(NavigationParams.ID to it)) },
                 onArticleSave = viewModel::saveArticle,
                 onSearchClick = { navController.navigate(SEARCH_SCREEN) },
-                onSavedClick = { navController.navigate(SAVED_ARTICLES_SCREEN) }
+                onSavedClick = { navController.navigate(SAVED_ARTICLES_SCREEN) },
+                setScrolledPosition = viewModel::getScrolledPosition
             )
         }
         composable(ARTICLE_SCREEN) { backStackEntry ->
@@ -55,7 +56,8 @@ fun NavHost(navController: NavHostController) {
                 onSearch = viewModel::onSearch,
                 onRemoveClick = viewModel::onRemove,
                 onSortClick = viewModel::onSortClick,
-                onReadMore = { navController.navigate(ARTICLE_SCREEN, bundleOf(NavigationParams.ID to it)) }
+                onReadMore = { navController.navigate(ARTICLE_SCREEN, bundleOf(NavigationParams.ID to it)) },
+                setScrolledPosition = viewModel::getScrolledPosition
             )
         }
         composable(SAVED_ARTICLE_SCREEN) { backStackEntry ->

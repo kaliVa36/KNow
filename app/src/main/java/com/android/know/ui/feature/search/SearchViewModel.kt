@@ -2,6 +2,7 @@ package com.android.know.ui.feature.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.android.know.domain.Pagination
 import com.android.know.domain.usecase.NewsUseCase
 import com.android.know.ui.components.sorting.ArticleSorting
 import com.android.know.ui.components.sorting.DATE_SORTING_KEY_WORD
@@ -19,6 +20,10 @@ class SearchViewModel(private val newsUseCase: NewsUseCase) : ViewModel() {
     }
 
     fun onSearch() {
+        getNews()
+    }
+
+    private fun getNews(page: Int = Pagination.FIRST_PAGE_NEWS) {
         val searchKey = _searchUIState.value.searchValue
         val sortingKey =
             if (_searchUIState.value.selectedSorting == ArticleSorting.DATE) {
@@ -28,9 +33,12 @@ class SearchViewModel(private val newsUseCase: NewsUseCase) : ViewModel() {
             }
         if (searchKey.isNotBlank()) {
             viewModelScope.launch {
-                newsUseCase(q = searchKey, sortBy = sortingKey).fold(
+                newsUseCase(q = searchKey, sortBy = sortingKey, page = page).fold(
                     onSuccess = { articles ->
-                        _searchUIState.update { it.copy(articles = articles) }
+                        if (articles.size < Pagination.PAGE_SIZE) {
+                            _searchUIState.update { it.copy(isLastPage = true) }
+                        }
+                        _searchUIState.update { it.copy(articles = articles, listSize = articles.size) }
                     },
                     onFailure = {}
                 )
@@ -47,5 +55,20 @@ class SearchViewModel(private val newsUseCase: NewsUseCase) : ViewModel() {
 
     fun onRemove() {
         _searchUIState.update { it.copy(selectedSorting = null) }
+    }
+
+    fun getScrolledPosition(index: Int) {
+        if (
+            index >= (_searchUIState.value.listSize * (_searchUIState.value.pageCounter)) -
+            Pagination.LAST_INDEX_FIX && ! _searchUIState.value.isLastPage
+        ) {
+            incrementPage()
+        }
+    }
+
+    private fun incrementPage() {
+        val page = _searchUIState.value.pageCounter + 1
+        getNews(page)
+        _searchUIState.update { it.copy(pageCounter = page) }
     }
 }
