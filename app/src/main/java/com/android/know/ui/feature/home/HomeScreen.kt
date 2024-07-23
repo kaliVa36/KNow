@@ -107,7 +107,7 @@ fun HomeScreen(
                                 height = height / 2,
                                 onClick = { id -> onArticleClick(id) },
                                 onSave = { onArticleSave(articleEntity) },
-                                isSaved = homeScreenData.savedArticles.data.contains(articleEntity)
+                                isSaved = homeScreenData.savedArticles.data.any { it.id == articleEntity.id }
                             )
                         } else {
                             ArticleSummaryUI(
@@ -115,7 +115,7 @@ fun HomeScreen(
                                 height = height / 2,
                                 onClick = { id -> onArticleClick(id) },
                                 onSave = { onArticleSave(articleEntity) },
-                                isSaved = homeScreenData.savedArticles.data.contains(articleEntity)
+                                isSaved = homeScreenData.savedArticles.data.any { it.id == articleEntity.id }
                             )
                         }
                         Spacer(modifier = Modifier.height(10.dp))
